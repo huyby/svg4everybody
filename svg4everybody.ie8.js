@@ -4,18 +4,22 @@
 		if (g) {
 			var
 			viewBox = g.getAttribute('viewBox'),
-			fragment = document.createDocumentFragment(),
-			clone = g.cloneNode(true);
+            preserveAspectRatio = g.getAttribute('preserveAspectRatio'),
+            fragment = document.createDocumentFragment(),
+            clone = g.cloneNode(true);
 
-			if (viewBox) {
-				svg.setAttribute('viewBox', viewBox);
-			}
+            if (viewBox) {
+                svg.setAttribute('viewBox', viewBox);
+            }
+            if (preserveAspectRatio) {
+                svg.setAttribute('preserveAspectRatio', preserveAspectRatio);
+            }
 
-			while (clone.childNodes.length) {
-				fragment.appendChild(clone.childNodes[0]);
-			}
+            while (clone.childNodes.length) {
+                fragment.appendChild(clone.childNodes[0]);
+            }
 
-			svg.appendChild(fragment);
+            svg.appendChild(fragment);
 		}
 	}
 
@@ -38,11 +42,10 @@
 
 		while ((use = uses[0])) {
 			if (LTEIE8) {
-				var img = new Image(), src, q;
+				var
+				img = new Image();
 
-				src = use.getAttribute('xlink:href');
-				q = (/\?[^#]+/.exec(src) || [''])[0];
-				img.src = src.replace(/\?[^#]+/, '').replace('#', '.').replace(/^\./, '') + '.png' + q;
+				img.src = use.getAttribute('xlink:href').replace('#', '.').replace(/^\./, '') + '.png';
 
 				use.parentNode.replaceChild(img, use);
 			} else {
@@ -91,7 +94,7 @@
 	window.requestAnimationFrame || window.setTimeout,
 	{},
 	/MSIE\s[1-8]\b/.test(navigator.userAgent),
-	/Trident\/[567]\b/.test(navigator.userAgent) || /Edge\/12/.test(navigator.userAgent) || (navigator.userAgent.match(/AppleWebKit\/(\d+)/) || [])[1] < 537,
+	/Trident\/[567]\b/.test(navigator.userAgent) || (navigator.userAgent.match(/AppleWebKit\/(\d+)/) || [])[1] < 537,
 	document.createElement('svg'),
 	document.createElement('use')
 );

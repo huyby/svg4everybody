@@ -4,12 +4,16 @@
 		if (g) {
 			var
 			viewBox = g.getAttribute('viewBox'),
+            preserveAspectRatio = g.getAttribute('preserveAspectRatio'),
 			fragment = document.createDocumentFragment(),
 			clone = g.cloneNode(true);
 
 			if (viewBox) {
 				svg.setAttribute('viewBox', viewBox);
 			}
+            if (preserveAspectRatio) {
+                svg.setAttribute('preserveAspectRatio', preserveAspectRatio);
+            }
 
 			while (clone.childNodes.length) {
 				fragment.appendChild(clone.childNodes[0]);
@@ -80,5 +84,5 @@
 	document.getElementsByTagName('use'),
 	window.requestAnimationFrame || window.setTimeout,
 	{},
-	/Trident\/[567]\b/.test(navigator.userAgent) || /Edge\/12/.test(navigator.userAgent) || (navigator.userAgent.match(/AppleWebKit\/(\d+)/) || [])[1] < 537
+	/Trident\/[567]\b/.test(navigator.userAgent) || (navigator.userAgent.match(/AppleWebKit\/(\d+)/) || [])[1] < 537
 );
